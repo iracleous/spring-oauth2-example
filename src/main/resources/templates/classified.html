@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Classified</title>
+</head>
+<body>
+<h2>This Page is Classified!</h2>
+
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <h3 th:inline="text">Welcome <span th:text="${name}">John Doe</span>!</h3>
+		<h3 th:inline="text">You have the following roles and scopes: <span th:text="${authorities}">[ROLE_USER, SCOPE_read:user]</span></h3>
+		<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    
+	<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+	   <h3> You are assigned the role of 'ADMIN'</h3>
+	</div>
+	
+	<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+	   <h3>You are assigned the role of 'USER'.</h3>
+	</div>
+</body>
+</html>
